@@ -1,0 +1,306 @@
+/*
+ * ER/Studio Data Architect SQL Code Generation
+ * Project :      NYC_MV_DimensionalModel.DM1
+ *
+ * Date Created : Thursday, April 20, 2023 23:47:48
+ * Target DBMS : Microsoft SQL Server 2019
+ */
+
+/* 
+ * TABLE: Dim_Accident 
+ */
+
+CREATE TABLE Dim_Accident(
+    AccidentSK                     int              NOT NULL,
+    Point_Of_Impact                char(20)         NULL,
+    Vehicle_Damage                 char(20)         NULL,
+    Vehicle_Damage_1               char(10)         NULL,
+    Vehicle_Damage_2               char(10)         NULL,
+    Vehicle_Damage_3               char(10)         NULL,
+    Public_Property_Damage         char(10)         NULL,
+    Public_Property_Damage_Type    char(10)         NULL,
+    Contributing_Factor_Number     int              NULL,
+    Contributing_Factor            char(10)         NULL,
+    DI_CreateDate                  datetime         NOT NULL,
+    Pre_Acdnt_Action               char(50)         NULL,
+    DI_WorkflowDirectory           nvarchar(256)    NOT NULL,
+    DI_WorkflowFileName            nvarchar(256)    NULL,
+    CONSTRAINT PK8 PRIMARY KEY NONCLUSTERED (AccidentSK)
+)
+
+go
+
+
+IF OBJECT_ID('Dim_Accident') IS NOT NULL
+    PRINT '<<< CREATED TABLE Dim_Accident >>>'
+ELSE
+    PRINT '<<< FAILED CREATING TABLE Dim_Accident >>>'
+go
+
+/* 
+ * TABLE: Dim_Collision 
+ */
+
+CREATE TABLE Dim_Collision(
+    CollisioSK                            int              NOT NULL,
+    Collision_ID                          int              NULL,
+    DI_CreateDate                         datetime         NOT NULL,
+    Nnumber_Of_Person_Injured             int              NULL,
+    Number_Of_Person_KIlled               int              NULL,
+    Number_Of_Pedestrian_Injured          int              NULL,
+    Number_Of_Pedestrian_Killed           int              NULL,
+    Number_Of_Cyclist_Injured             int              NULL,
+    Number_Of_Cyclist_Killed              int              NULL,
+    Number_Of_Motorist_Injured            int              NULL,
+    Number_Of_Motorist_Killed             int              NULL,
+    Contributing_Factor_Vehicle_Number    int              NULL,
+    Contributing_Factor_Vehicle           char(50)         NULL,
+    Vehicle_Type_Code_Number              char(10)         NULL,
+    DI_WorkflowDirectory                  nvarchar(256)    NOT NULL,
+    DI_WorkflowFileName                   nvarchar(256)    NULL,
+    CONSTRAINT PK5 PRIMARY KEY NONCLUSTERED (CollisioSK)
+)
+
+go
+
+
+IF OBJECT_ID('Dim_Collision') IS NOT NULL
+    PRINT '<<< CREATED TABLE Dim_Collision >>>'
+ELSE
+    PRINT '<<< FAILED CREATING TABLE Dim_Collision >>>'
+go
+
+/* 
+ * TABLE: Dim_Date 
+ */
+
+CREATE TABLE Dim_Date(
+    DateSK                  char(10)         NOT NULL,
+    Time                    time(7)          NULL,
+    Quarter                 int              NULL,
+    DI_CreateDate           datetime         NOT NULL,
+    Year                    int              NULL,
+    Date                    date             NULL,
+    Month                   date             NULL,
+    DI_WorkflowDirectory    nvarchar(256)    NOT NULL,
+    DI_WorkflowFileName     nvarchar(256)    NULL,
+    CONSTRAINT PK3 PRIMARY KEY NONCLUSTERED (DateSK)
+)
+
+go
+
+
+IF OBJECT_ID('Dim_Date') IS NOT NULL
+    PRINT '<<< CREATED TABLE Dim_Date >>>'
+ELSE
+    PRINT '<<< FAILED CREATING TABLE Dim_Date >>>'
+go
+
+/* 
+ * TABLE: Dim_Driver 
+ */
+
+CREATE TABLE Dim_Driver(
+    DriverSK                       int              NOT NULL,
+    DI_CreateDate                  datetime         NOT NULL,
+    Driver_Sex                     char(10)         NULL,
+    Driver_License_Status          char(10)         NULL,
+    Driver_Licence_Jurisdiction    char(10)         NULL,
+    DI_WorkflowDirectory           nvarchar(256)    NOT NULL,
+    DI_WorkflowFileName            nvarchar(256)    NULL,
+    VehicleSK                      int              NULL,
+    AccidentSK                     int              NULL,
+    CONSTRAINT PK2 PRIMARY KEY NONCLUSTERED (DriverSK)
+)
+
+go
+
+
+IF OBJECT_ID('Dim_Driver') IS NOT NULL
+    PRINT '<<< CREATED TABLE Dim_Driver >>>'
+ELSE
+    PRINT '<<< FAILED CREATING TABLE Dim_Driver >>>'
+go
+
+/* 
+ * TABLE: Dim_Location 
+ */
+
+CREATE TABLE Dim_Location(
+    LocationSK              int              NOT NULL,
+    DI_CreateDate           datetime         NOT NULL,
+    Borough                 char(20)         NULL,
+    Zipcode                 char(10)         NULL,
+    Latitude                nvarchar(10)     NULL,
+    Longitude               nvarchar(10)     NULL,
+    Location                nvarchar(10)     NULL,
+    On_Street_Name          char(10)         NULL,
+    Off_Street_Name         char(10)         NULL,
+    Cross_Street_Name       char(10)         NULL,
+    DI_WorkflowDirectory    nvarchar(256)    NOT NULL,
+    DI_WorkflowFileName     nvarchar(256)    NULL,
+    CONSTRAINT PK7 PRIMARY KEY NONCLUSTERED (LocationSK)
+)
+
+go
+
+
+IF OBJECT_ID('Dim_Location') IS NOT NULL
+    PRINT '<<< CREATED TABLE Dim_Location >>>'
+ELSE
+    PRINT '<<< FAILED CREATING TABLE Dim_Location >>>'
+go
+
+/* 
+ * TABLE: Dim_Vehicle 
+ */
+
+CREATE TABLE Dim_Vehicle(
+    VehicleSK               int              NOT NULL,
+    Vehicle_Type            char(10)         NULL,
+    State_Registration      char(10)         NULL,
+    Vehicle_Make            char(10)         NULL,
+    Vehicle_Model           char(10)         NULL,
+    Travel_Direction        char(50)         NULL,
+    Vehicle_Occupants       int              NULL,
+    DI_CreateDate           datetime         NOT NULL,
+    VehicleID               int              NOT NULL,
+    DI_WorkflowDirectory    nvarchar(256)    NOT NULL,
+    DI_WorkflowFileName     nvarchar(256)    NULL,
+    Vehicle_Year            char(10)         NULL,
+    CONSTRAINT PK4 PRIMARY KEY NONCLUSTERED (VehicleSK)
+)
+
+go
+
+
+IF OBJECT_ID('Dim_Vehicle') IS NOT NULL
+    PRINT '<<< CREATED TABLE Dim_Vehicle >>>'
+ELSE
+    PRINT '<<< FAILED CREATING TABLE Dim_Vehicle >>>'
+go
+
+/* 
+ * TABLE: Dim_Victim 
+ */
+
+CREATE TABLE Dim_Victim(
+    VictimSK                 int              NOT NULL,
+    Victim_ID                int              NULL,
+    Victim_Type              char(10)         NULL,
+    Victim_Injury            char(10)         NULL,
+    Victim_Age               int              NULL,
+    Ejection                 char(10)         NULL,
+    Emotional_status         char(20)         NULL,
+    Bodily_Injury            char(10)         NULL,
+    Position_In_Vehicle      char(10)         NULL,
+    Safety_Equipment         char(10)         NULL,
+    Ped_Location             char(20)         NULL,
+    Ped_Action               char(20)         NULL,
+    Complaint                char(50)         NULL,
+    Victim_role              char(20)         NULL,
+    Contributing_Factor_1    char(20)         NULL,
+    Contributing_Factor_2    char(20)         NULL,
+    Victim_Sex               char(10)         NULL,
+    DI_CreateDate            datetime         NOT NULL,
+    DI_WorkflowDirectory     nvarchar(256)    NOT NULL,
+    DI_WorkflowFileName      nvarchar(256)    NULL,
+    CONSTRAINT PK6 PRIMARY KEY NONCLUSTERED (VictimSK)
+)
+
+go
+
+
+IF OBJECT_ID('Dim_Victim') IS NOT NULL
+    PRINT '<<< CREATED TABLE Dim_Victim >>>'
+ELSE
+    PRINT '<<< FAILED CREATING TABLE Dim_Victim >>>'
+go
+
+/* 
+ * TABLE: FCT_Crash 
+ */
+
+CREATE TABLE FCT_Crash(
+    CrashSK                 int              NOT NULL,
+    DI_CreateDate           datetime         NOT NULL,
+    DI_WorkflowDirectory    nvarchar(256)    NOT NULL,
+    DI_WorkflowFileName     nvarchar(256)    NULL,
+    [Accident-Time]         char(10)         NULL,
+    [Accident-Date]         char(10)         NULL,
+    DriverSK                int              NULL,
+    VictimSK                int              NULL,
+    CollisioSK              int              NULL,
+    LocationSK              int              NULL,
+    CONSTRAINT PK1 PRIMARY KEY NONCLUSTERED (CrashSK)
+)
+
+go
+
+
+IF OBJECT_ID('FCT_Crash') IS NOT NULL
+    PRINT '<<< CREATED TABLE FCT_Crash >>>'
+ELSE
+    PRINT '<<< FAILED CREATING TABLE FCT_Crash >>>'
+go
+
+/* 
+ * TABLE: Dim_Driver 
+ */
+
+ALTER TABLE Dim_Driver ADD CONSTRAINT RefDim_Vehicle7 
+    FOREIGN KEY (VehicleSK)
+    REFERENCES Dim_Vehicle(VehicleSK)
+go
+
+ALTER TABLE Dim_Driver ADD CONSTRAINT RefDim_Accident8 
+    FOREIGN KEY (AccidentSK)
+    REFERENCES Dim_Accident(AccidentSK)
+go
+
+
+/* 
+ * TABLE: Dim_Vehicle 
+ */
+
+ALTER TABLE Dim_Vehicle ADD CONSTRAINT RefDim_Date6 
+    FOREIGN KEY (Vehicle_Year)
+    REFERENCES Dim_Date(DateSK)
+go
+
+
+/* 
+ * TABLE: FCT_Crash 
+ */
+
+ALTER TABLE FCT_Crash ADD CONSTRAINT RefDim_Date10 
+    FOREIGN KEY ([Accident-Date])
+    REFERENCES Dim_Date(DateSK)
+go
+
+ALTER TABLE FCT_Crash ADD CONSTRAINT RefDim_Date11 
+    FOREIGN KEY ([Accident-Time])
+    REFERENCES Dim_Date(DateSK)
+go
+
+ALTER TABLE FCT_Crash ADD CONSTRAINT RefDim_Driver12 
+    FOREIGN KEY (DriverSK)
+    REFERENCES Dim_Driver(DriverSK)
+go
+
+ALTER TABLE FCT_Crash ADD CONSTRAINT RefDim_Victim13 
+    FOREIGN KEY (VictimSK)
+    REFERENCES Dim_Victim(VictimSK)
+go
+
+ALTER TABLE FCT_Crash ADD CONSTRAINT RefDim_Collision14 
+    FOREIGN KEY (CollisioSK)
+    REFERENCES Dim_Collision(CollisioSK)
+go
+
+ALTER TABLE FCT_Crash ADD CONSTRAINT RefDim_Location15 
+    FOREIGN KEY (LocationSK)
+    REFERENCES Dim_Location(LocationSK)
+go
+
+
